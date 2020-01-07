@@ -2,10 +2,15 @@ const helpers = require('./helpers')
 const fonts = {
   mdi: {
     package: {
-      '@mdi/font': '^3.6.95',
+      '@mdi/font': '*',
     },
     import: '@mdi/font/css/materialdesignicons.css',
     link: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">',
+  },
+  mdiSvg: {
+    package: {
+      '@mdi/js': '*',
+    },
   },
   md: {
     package: {
@@ -48,7 +53,9 @@ function addDependencies (api, iconFont) {
 
 function addImports (api, iconFont) {
   api.injectImports(api.entryFile, `import '${fonts.roboto.import}'`)
-  api.injectImports(api.entryFile, `import '${fonts[iconFont].import}'`)
+  if (iconFont !== 'mdiSvg') {
+    api.injectImports(api.entryFile, `import '${fonts[iconFont].import}'`)
+  }
 }
 
 function addLinks (api, iconFont) {
@@ -56,7 +63,9 @@ function addLinks (api, iconFont) {
     const lastLink = lines.reverse().findIndex(line => line.match(/^\s*<\/head>/))
 
     lines.splice(lastLink + 1, 0, `    ${fonts['roboto'].link}`)
-    lines.splice(lastLink + 1, 0, `    ${fonts[iconFont].link}`)
+    if (iconFont !== 'mdiSvg') {
+      lines.splice(lastLink + 1, 0, `    ${fonts[iconFont].link}`)
+    }
 
     return lines.reverse()
   })
