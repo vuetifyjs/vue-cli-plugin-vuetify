@@ -64,11 +64,14 @@ function generatePreset (api, preset, onCreateComplete) {
     return
   }
 
-  const file = 'src/plugins/vuetify.js'
+  const file = getPluginFileName(api)
   const plugin = api.resolve(file)
 
   if (!fs.existsSync(plugin)) {
-    console.warn('Unable to locate `vuetify.js` plugin file in `src/plugins`.')
+    const fileSeparatorIndex = file.lastIndexOf('/')
+    const fileName = file.substr(fileSeparatorIndex + 1)
+    const filePath = file.substr(0, fileSeparatorIndex);
+    console.warn(`Unable to locate \`${fileName}\` plugin file in \`${filePath}\`.`)
 
     return
   }
@@ -80,6 +83,12 @@ function generatePreset (api, preset, onCreateComplete) {
 
     typeof onCreateComplete === 'function' && onCreateComplete()
   })
+}
+
+// Returns the path to the vuetify plugin file, adjusting if typescript is added
+function getPluginFileName(api) {
+  const extension = api.hasPlugin('typescript') ? 'ts' : 'js'
+  return `src/plugins/vuetify.${extension}`
 }
 
 // Check if file exists in user project
@@ -119,7 +128,8 @@ function updateFile (api, file, callback) {
 
 // Add new property to the Vuetify object
 function updateVuetifyObject (api, value) {
-  updateFile(api, 'src/plugins/vuetify.js', content => {
+  const pluginFile = getPluginFileName(api)
+  updateFile(api, pluginFile, content => {
     const existingValue = str => (
       str.indexOf(`${value},`) > -1 ||
       str.indexOf(`${value}:`) > -1
@@ -136,7 +146,7 @@ function updateVuetifyObject (api, value) {
     const vuetify = content[index]
 
     if (!vuetify) {
-      console.warn('Unable to locate Vuetify instantiation in `src/plugins/vuetify.js`.')
+      console.warn(`Unable to locate Vuetify instantiation in \`${pluginFile}\`.`)
 
       return
     }
@@ -185,6 +195,7 @@ function VuetifyPresetGenerator (api, preset, onCreateComplete) {
 module.exports = {
   fileExists,
   generatePreset,
+  getPluginFileName,
   injectGoogleFontLink,
   injectHtmlLink,
   injectSassVariables,
