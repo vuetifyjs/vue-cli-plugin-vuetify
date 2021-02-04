@@ -11,12 +11,12 @@
       >
         <span class="headline font-weight-light">Vuetify</span>
 
-        <h1 class="display-4 font-weight-black mb-6">
+        <h1 class="display-2 font-weight-black mb-6">
           Base Preset
         </h1>
 
         <v-img
-          class="mx-auto mb-10"
+          class="mx-auto mb-10 mt-8"
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png"
           width="196"
         />
@@ -88,9 +88,8 @@
               v-for="[text, icon, color] in features"
               :key="text"
               class="text-center d-inline-flex justify-center flex-wrap"
-              cols="6"
               sm="4"
-              md="3"
+              md="2"
             >
               <v-icon
                 :color="color"
@@ -100,7 +99,7 @@
               />
 
               <div
-                class="col col-12 overline grey--text text--darken-4"
+                class="col col-12 caption font-weight-bold grey--text text--darken-4"
                 v-text="text"
               />
             </v-col>
@@ -112,24 +111,24 @@
 </template>
 
 <script>
-  export default {
-    name: 'Home',
+export default {
+  name: 'Home',
 
-    data: () => ({
-      features: [
-        ['Routing', 'mdi-road-variant', 'blue-grey'],
-        ['Vuetify ESLint', 'mdi-auto-fix', 'deep-purple accent-4'],
-        ['SASS', 'mdi-sass', 'pink'],
-        ['Base Components', 'mdi-cube-scan', 'indigo'],
-        ['View Layouts', 'mdi-view-grid-outline', 'orange'],
-        ['Webfont Loader', 'mdi-format-size', 'green accent-4'],
-      ],
-      links: [
-        ['//github.com/vuetifyjs/vuetify', 'Github', 'mdi-github'],
-        ['//vuetifyjs.com', 'Documentation', 'mdi-file-document'],
-        ['//community.vuetifyjs.com', 'Community', 'mdi-account-multiple'],
-        ['//github.com/users/johnleider/sponsors', 'Support Vuetify', 'mdi-vuetify'],
-      ],
-    }),
-  }
+  data: () => ({
+    features: [
+      ['Routing', 'mdi-road-variant', 'blue-grey'],
+      ['Vuetify ESLint', 'mdi-auto-fix', 'deep-purple accent-4'],
+      ['SASS', 'mdi-sass', 'pink'],
+      ['Base Components', 'mdi-cube-scan', 'indigo'],
+      ['View Layouts', 'mdi-view-grid-outline', 'orange'],
+      ['Webfont Loader', 'mdi-format-size', 'green accent-4']
+    ],
+    links: [
+      ['//github.com/vuetifyjs/vuetify', 'Github', 'mdi-github'],
+      ['//vuetifyjs.com', 'Documentation', 'mdi-file-document'],
+      ['//community.vuetifyjs.com', 'Community', 'mdi-account-multiple'],
+      ['//github.com/users/johnleider/sponsors', 'Support Vuetify', 'mdi-vuetify']
+    ]
+  })
+}
 </script>
