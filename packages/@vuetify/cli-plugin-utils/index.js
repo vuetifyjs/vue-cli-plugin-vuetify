@@ -57,7 +57,7 @@ function injectSassVariables (
   })
 }
 
-function generatePreset (api, preset, onCreateComplete) {
+function generatePreset (api, onCreateComplete) {
   if (!api.hasPlugin('vuetify')) {
     console.error('Vuetify presets require the `vue-cli-plugin-vuetify` package.')
 
@@ -74,7 +74,7 @@ function generatePreset (api, preset, onCreateComplete) {
     return
   }
 
-  api.injectImports(file, `import { preset } from ${preset}`)
+  api.injectImports(file, `import { preset } from '${api.id}/preset'`)
 
   api.onCreateComplete(() => {
     updateVuetifyObject(api, 'preset')
@@ -178,12 +178,12 @@ function updateVuetifyObject (api, value) {
 }
 
 // Helper functions for Vuetify presets
-function VuetifyPresetService (api, preset) {
-  injectSassVariables(api, `~vue-cli-plugin-vuetify-preset-${preset}/preset/variables.scss`)
+function VuetifyPresetService (api) {
+  injectSassVariables(api, `~${api.id}/preset/variables.scss`)
 }
 
-function VuetifyPresetGenerator (api, preset, onCreateComplete) {
-  generatePreset(api, `'vue-cli-plugin-vuetify-preset-${preset}/preset'`, onCreateComplete)
+function VuetifyPresetGenerator (api, onCreateComplete) {
+  generatePreset(api, onCreateComplete)
 }
 
 module.exports = {
