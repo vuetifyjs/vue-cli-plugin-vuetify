@@ -15,7 +15,7 @@ module.exports = (api, opts) => {
   // Must be before dependencies because of weird bug
   if (!opts.useV3) vuetify.addImports(api)
   if (!opts.useAlaCarte && opts.usePolyfill) polyfill.addImports(api)
-  if (opts.installFonts && !opts.useV3) fonts.addImports(api, opts.iconFont)
+  if (opts.installFonts) opts.useV3 ? fonts.addPlugin(api, opts) : fonts.addImports(api, opts.iconFont)
 
   // Add dependencies
   vuetify.addDependencies(api, opts.useV3)

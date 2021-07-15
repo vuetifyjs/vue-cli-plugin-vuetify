@@ -41,7 +41,7 @@ function renderFiles (api, { opts }) {
     './src/components/HelloWorld.vue': `../templates/default/src/components/HelloWorld.${ext}.vue`,
   }
 
-  // replaceComponents is always true
+  // replaceComponents is always true except when `configure` option is chosen
   if (opts.replaceComponents) {
     if (opts.useV3) {
       files = {

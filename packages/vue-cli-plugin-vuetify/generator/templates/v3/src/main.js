@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import vuetify from './plugins/vuetify'
 import App from './App.vue'
 <%_ if (router) { _%>
 import router from './router'
@@ -7,14 +6,18 @@ import router from './router'
 <%_ if (store) { _%>
 import store from './store'
 <%_ } _%>
+import vuetify from './plugins/vuetify'
 
-const app = createApp(App)
+<%_ if (useV3) { _%>
+loadFonts()
+<%_ } _%>
+
+createApp(App)
 <%_ if (router) { _%>
-app.use(router)
+  .use(router)
 <%_ } _%>
 <%_ if (store) { _%>
-app.use(store)
+  .use(store)
 <%_ } _%>
-app.use(vuetify)
-
-app.mount('#app')
+  .use(vuetify)
+  .mount('#app')
